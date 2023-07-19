@@ -27,7 +27,7 @@ export const Login = () => {
             .catch(err=>{
                 if(err.response.status===401){
                     alert("Password and Email do not match")
-                }else {
+                }else{
                     alert("User does not exist");
                 }
             });
@@ -35,7 +35,10 @@ export const Login = () => {
             
 
             //force reload the page to re render all components with new user information
-            navigate('/');
+            if(localStorage.getItem('user'))
+                navigate('/');
+            else 
+                navigate('/login');
 
         }catch(err){
             console.log(err);
