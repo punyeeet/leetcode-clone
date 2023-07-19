@@ -1,5 +1,6 @@
 import React,{useState} from 'react'
 import axios from 'axios';
+import { redirect } from 'react-router-dom';
 
 const AddQues = () => {
 
@@ -12,14 +13,14 @@ const AddQues = () => {
       setQuestion((prev)=>({...prev , difficulty:bulletIndex}))
       console.log(question)
     };
-
-    const [question , setQuestion] = useState({
-      "title":null,
-      "description":null,
-      "acceptance":null,
-      "difficulty":null,
-      "id":null
-    });
+    let initialState = {
+      "title":'',
+      "description":'',
+      "acceptance":'',
+      "difficulty":'',
+      "id":''
+    }
+    const [question , setQuestion] = useState(initialState);
 
     const handleformChange = (e)=>{
       setQuestion((prev)=>({...prev, [e.target.name]:e.target.value}));
@@ -29,7 +30,13 @@ const AddQues = () => {
     const handleSubmit = async e=>{
       e.preventDefault()
       try{    
-          await axios.post("http://localhost:3001/addQues",question)
+          await axios.post("http://localhost:3001/addQues",question).then(
+            alert("Question added Successfully")
+          )
+          setSelectedBullet(null);
+          setQuestion(initialState);
+
+
       }catch(err){
         console.log(err)
       }
@@ -48,15 +55,15 @@ const AddQues = () => {
   </div>
   <div className="p-6 " >
   <label className='text-white'>Title</label>
-    <input placeholder='Title' name='title' className='block m-auto p-1' onChange={handleformChange}></input>
+    <input placeholder='Title' name='title' className='block m-auto p-1' onChange={handleformChange} value={question.title}></input>
     <label className='text-white'>Description</label>
     
     
-    <textarea className='block mx-auto my-2 p-1' placeholder='Description' name='description' onChange={handleformChange}></textarea>
+    <textarea className='block mx-auto my-2 p-1' placeholder='Description' name='description' onChange={handleformChange} value={question.description}></textarea>
     <label className='text-white'>Acceptance</label>
-    <input placeholder='Acceptance' name='acceptance' className='block mx-auto my-2 p-1' onChange={handleformChange}></input>
+    <input placeholder='Acceptance' name='acceptance' className='block mx-auto my-2 p-1' onChange={handleformChange} value={question.acceptance}></input>
     <label className='text-white'>ID</label>
-    <input type='number' placeholder='ID' name='id' className='block mx-auto my-2 p-1' onChange={handleformChange}></input>
+    <input type='number' placeholder='ID' name='id' className='block mx-auto my-2 p-1' onChange={handleformChange} value={question.id}></input>
     
     
     <ul className="w-full block">

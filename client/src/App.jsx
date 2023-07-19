@@ -41,6 +41,7 @@ function App() {
             <Route path='/question/:id' element={<Question/>}/>
 
             <Route path='/AddQues' element={<Protected Component={AddQues}/>}/>
+            
             <Route path='/UpdateQues/:id' element={<Protected Component={UpdateQues}/>}/>
         </Routes>
 

@@ -3,6 +3,8 @@ import { useEffect } from 'react';
 import { useState } from 'react';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
+import { FaTrashAlt} from "react-icons/fa";
+import { FaPenToSquare } from "react-icons/fa6";
 
 const ProblemsAdmin = () => {
     const [problemArr,setproblemArr] = useState([])
@@ -26,6 +28,7 @@ const ProblemsAdmin = () => {
         
         return (
             <div className='allProblems bg-blue-900'>
+            <div className=''></div>
             <table className="min-w-full divide-y divide-gray-200">
             <tbody>
     
@@ -54,20 +57,20 @@ const ProblemsAdmin = () => {
             </td>
             <td className='hover:text-black hover:scale-110 delay-100'>
             <Link to={`/updateQues/${curr.problemId}`}>
-              Edit
+            <FaPenToSquare/>
             </Link>
             </td>
             <td className='hover:text-black hover:scale-110 delay-100'>
-            <button onClick={()=>handleDelete(curr.problemId)}>Delete</button>
+            <button onClick={()=>handleDelete(curr.problemId)}><FaTrashAlt/></button>
             </td>
         </tr>
                 )
             })}
         </tbody>
         </table>
-
-            <button className="bg-gray-500 hover:bg-slate-400
-             block rounded mt-5 px-2 py-3 border-4 border-yellow-600 m-auto"><a href='/AddQues'>Add Problem</a></button>
+        <a href='/AddQues'>
+            <button className="bg-blue-950 hover:shadow-2xl hover:text-blue-200
+             block rounded mt-5 px-2 py-3 border-2 border-yellow-600 m-auto text-white">Add Problem</button></a>
             </div>
         )
 }

@@ -56,9 +56,13 @@ const handleBulletClick = (bulletIndex) => {
       e.preventDefault()
       try{    
         
-        await axios.put(`http://localhost:3001/updateQues`,problem)
+        await axios.put(`http://localhost:3001/updateQues`,problem).then(
+          alert("Updated !!")
+        ).catch((err)=>alert(err));
 
-        navigate('/signup');
+        
+
+
         
       }catch(err){
         console.log(err)
@@ -66,7 +70,7 @@ const handleBulletClick = (bulletIndex) => {
     }
 
   return (
-    <div className='mt-6 bg-black h-screen py-5'>
+    <div className='mt-6 bg-black h-screen py-7'>
     
 
     
