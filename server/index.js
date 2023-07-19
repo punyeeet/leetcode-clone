@@ -3,12 +3,14 @@ const cors = require('cors')
 const express = require('express')
 const bodyParser = require('body-parser');
 const jwt = require('jsonwebtoken');
+require('dotenv').config();
 const { auth } = require('./middleware');
 const app = express()
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
-const port = 3001
+const port = process.env.PORT || 3001
 require('./db/config')
+
 
 app.use(cors())
 
