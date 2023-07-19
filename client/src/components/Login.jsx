@@ -1,6 +1,8 @@
 import axios from 'axios';
 import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom';
+import { BASE } from './helper';
+
 
 
 
@@ -16,7 +18,7 @@ export const Login = () => {
     const handleSubmit = async e=>{
         e.preventDefault()
         try{    
-            await axios.post("http://localhost:3001/login",log)
+            await axios.post(`${BASE}/login`,log)
             .then(res=>{
                 localStorage.setItem('user',JSON.stringify(res.data.user));
                 localStorage.setItem('auth',JSON.stringify(res.data.token));

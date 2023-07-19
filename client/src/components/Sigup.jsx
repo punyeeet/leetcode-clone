@@ -1,6 +1,7 @@
 import axios from 'axios';
 import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom';
+import { BASE } from './helper';
 
 export const Signup = () => {
     const [log,setLog] = useState({name:"",username:"",password:""});
@@ -14,7 +15,7 @@ export const Signup = () => {
     const handleSubmit = async e=>{
         e.preventDefault()
         try{    
-            await axios.post("http://localhost:3001/signup",log)
+            await axios.post(`${BASE}/signup`,log)
             .then(async res=>{
                 localStorage.setItem('user',JSON.stringify(res.data.user));
                 localStorage.setItem('auth',JSON.stringify(res.data.token));

@@ -4,6 +4,7 @@ import { useState } from 'react';
 import axios from 'axios';
 import { useParams } from 'react-router-dom';
 import Editor from "@monaco-editor/react"
+import { BASE } from './helper';
 
 const Question = () => {
     const { id } = useParams();
@@ -14,7 +15,7 @@ const Question = () => {
     useEffect(()=>{
         const fetchQues = async ()=>{
           try{
-            const res = await axios.get(`http://localhost:3001/problem/${id}`)
+            const res = await axios.get(`${BASE}/problem/${id}`)
             setProblem(res.data.problem);
           }catch(err){
             console.log(err);

@@ -3,7 +3,7 @@ import { useEffect } from 'react';
 import { useState } from 'react';
 import axios from 'axios';
 import { useNavigate, useParams } from 'react-router-dom';
-
+import { BASE } from './helper';
 
 const UpdateQues = () => {
 
@@ -56,7 +56,7 @@ const handleBulletClick = (bulletIndex) => {
       e.preventDefault()
       try{    
         
-        await axios.put(`http://localhost:3001/updateQues`,problem).then(
+        await axios.put(`${BASE}/updateQues`,problem).then(
           alert("Updated !!")
         ).catch((err)=>alert(err));
 

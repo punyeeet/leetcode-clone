@@ -1,6 +1,7 @@
 import React,{useState} from 'react'
 import axios from 'axios';
 import { redirect } from 'react-router-dom';
+import { BASE } from './helper';
 
 const AddQues = () => {
 
@@ -30,7 +31,7 @@ const AddQues = () => {
     const handleSubmit = async e=>{
       e.preventDefault()
       try{    
-          await axios.post("http://localhost:3001/addQues",question).then(
+          await axios.post(`${BASE}/addQues`,question).then(
             alert("Question added Successfully")
           )
           setSelectedBullet(null);

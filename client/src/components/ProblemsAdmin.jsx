@@ -5,13 +5,14 @@ import axios from 'axios';
 import { Link } from 'react-router-dom';
 import { FaTrashAlt} from "react-icons/fa";
 import { FaPenToSquare } from "react-icons/fa6";
+import { BASE } from './helper';
 
 const ProblemsAdmin = () => {
     const [problemArr,setproblemArr] = useState([])
     useEffect(()=>{
       const fetchQues = async ()=>{
         try{
-          const res = await axios.get("http://localhost:3001/questions")
+          const res = await axios.get(`${BASE}/questions`)
           setproblemArr(res.data.problems);
         }catch(err){
           console.log(err);
@@ -21,7 +22,7 @@ const ProblemsAdmin = () => {
     },[])
 
     const handleDelete = async (problemId)=>{
-      await axios.delete(`http://localhost:3001/deleteQues/${problemId}`)
+      await axios.delete(`${BASE}/deleteQues/${problemId}`)
 
       window.location.reload();
     }
