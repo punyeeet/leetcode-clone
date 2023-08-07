@@ -22,6 +22,13 @@ The website allows user to sign-up as well as login and have access to DSA probl
 - [ ]  View Previous Submissions
  
 
+## Demonstration
+
+- The following clip shows the admin features implemented till now like add, edit, and delete questions. 
+- https://github.com/punyeeet/leetcode-clone/assets/111042058/99f5e299-7ce6-4907-862d-17b6a82c70bd
+
+- The following clip shows a normal user log-in and sign-up.
+- https://github.com/punyeeet/leetcode-clone/assets/111042058/71a253b2-8f9a-4e14-b29b-d1fff12e52bf
 
 
 ## Deployment
