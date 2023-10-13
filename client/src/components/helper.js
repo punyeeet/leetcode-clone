@@ -20,18 +20,7 @@ const Auth = async () => {
 
 }
 
-// const logOut =  ()=>{
-//     const {setUser} = useContext(LoginContext)
 
-//     const logOutUser= async ()=> {
-//         await Axios.get(`${BASE}/logout`)
-//         .then(res=>{
-//             console.log(res);
-//         })
-//     }
-//     logOutUser();
-//     setUser(null);
-// }
 
 const BASE = 'https://leetcode-backend-kxbv.onrender.com'
 
