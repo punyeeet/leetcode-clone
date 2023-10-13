@@ -33,6 +33,6 @@ const Auth = async () => {
 //     setUser(null);
 // }
 
-const BASE = 'http://localhost:3001'
+const BASE = 'https://leetcode-backend-kxbv.onrender.com'
 
 export { BASE, Auth ,Axios}
