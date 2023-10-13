@@ -274,7 +274,8 @@ app.get('/auth',(req,res)=>{
 })
 
 app.get('/logout',(req,res)=>{
-  res.clearCookie('auth', { httpOnly: true });
+  res.clearCookie('auth', { httpOnly: true, secure: false,sameSite:'none',
+                           secure:true});
   res.send('Logged out successfully');
 })
 
