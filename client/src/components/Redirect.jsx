@@ -1,13 +1,13 @@
-import React, { useEffect } from 'react'
+import React, { useEffect , useContext} from 'react'
 import { useNavigate } from 'react-router-dom'
+import LoginContext from '../context/LoginContext';
 
 const Redirect = (props) => {
     const navigate = useNavigate();
     const {Component} = props;
+    const {user} = useContext(LoginContext)
     
     useEffect(()=>{
-        const user = localStorage.getItem('user');
-        
         if(user){
             navigate('/');
         }
