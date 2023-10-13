@@ -40,7 +40,7 @@ export const Login = () => {
             // else 
             //     navigate('/login');
             
-            // window.location.reload()
+            window.location.reload()
         }catch(err){
             console.log(err);
         }
