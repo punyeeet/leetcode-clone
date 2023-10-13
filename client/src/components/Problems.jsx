@@ -3,7 +3,8 @@ import { useEffect } from 'react';
 import { useState } from 'react';
 import axios from 'axios';
 import { Link, useNavigate } from 'react-router-dom';
-import { BASE } from './helper';
+import { BASE , Auth} from './helper';
+import {FaArrowsUpDown} from 'react-icons/fa6'
 
 
 
@@ -32,13 +33,13 @@ const sortDifficulty = ()=>{
 
     
     return (
-        <div className='allProblems bg-black'>
+        <div className='allProblems'>
         <table className="min-w-full divide-y divide-gray-200">
         <tbody>
 
         <tr>
             <th>Title</th>
-            <th ><button onClick={sortDifficulty} className='hover:text-gray-500'> {asc ? 'low->high':'high->low'} Acceptance</button></th>
+            <th ><span onClick={sortDifficulty} className='cursor-pointer hover:text-gray-400'> <FaArrowsUpDown className='inline '/> Acceptance</span></th>
             <th>Difficulty</th>
           </tr>
         {problemArr.map((curr,index)=>{
@@ -47,9 +48,9 @@ const sortDifficulty = ()=>{
             return(
               
               
-     <tr className={`border-solid border-black text-slate-200 ${i} hover:bg-slate-500 `} key={index}>
+     <tr className={`border-solid border-black text-slate-200 ${i} `} key={index}>
         <td>
-        <Link to={`/question/${curr.problemId}`} className='hover:text-black hover:cursor-pointer'>
+        <Link to={`/question/${curr.problemId}`} className='hover:text-blue-700  hover:cursor-pointer'>
             {curr.title}
         </Link>
         </td>

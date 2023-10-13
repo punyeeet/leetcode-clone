@@ -17,26 +17,26 @@ export const Signup = () => {
         try{    
             await axios.post(`${BASE}/signup`,log)
             .then(async res=>{
-                localStorage.setItem('user',JSON.stringify(res.data.user));
-                localStorage.setItem('auth',JSON.stringify(res.data.token));
-                
-                navigate('/')
+                alert(res.data.msg) 
+                navigate('/login')
             }
             )
             .catch(err=>{
-                // if(err.response.status===401){
-                //     alert("Password and Email do not match")
-                // }else {
-
-                //     alert("User does not exist");
-                // }
+                if(err.response.status===400){
+                    alert("Error Creating new User")
+                }else if(err.response.status===401){
+                    
+                    alert("User Already exists");
+                }else{
+                    alert("Failed to create new user. Unexpected Error!")
+                }
                 console.log(err)
             });
             
             
 
             //force reload the page to re render all components with new user information
-            // window.location.reload();
+            window.location.reload();
             
         }catch(err){
             console.log(err);

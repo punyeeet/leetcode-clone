@@ -12,7 +12,6 @@ const AddQues = () => {
       
       setSelectedBullet(bulletIndex);
       setQuestion((prev)=>({...prev , difficulty:bulletIndex}))
-      console.log(question)
     };
     let initialState = {
       "title":'',
@@ -25,7 +24,6 @@ const AddQues = () => {
 
     const handleformChange = (e)=>{
       setQuestion((prev)=>({...prev, [e.target.name]:e.target.value}));
-      console.log(question)
     }
 
     const handleSubmit = async e=>{

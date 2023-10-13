@@ -1,7 +1,7 @@
 import axios from 'axios';
 import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom';
-import { BASE } from './helper';
+import { BASE ,Axios} from './helper';
 
 
 
@@ -12,16 +12,15 @@ export const Login = () => {
 
     const handleformChange = (e)=>{
         setLog((prev)=>({...prev, [e.target.name]:e.target.value}));
-        // console.log(log);
+        
     }
 
     const handleSubmit = async e=>{
         e.preventDefault()
         try{    
-            await axios.post(`${BASE}/login`,log)
+            await Axios.post(`${BASE}/login`,log)
             .then(res=>{
-                localStorage.setItem('user',JSON.stringify(res.data.user));
-                localStorage.setItem('auth',JSON.stringify(res.data.token));
+                localStorage.setItem('auth',JSON.stringify(res.data.user));
             }
             )
             .catch(err=>{
@@ -35,11 +34,13 @@ export const Login = () => {
             
 
             //force reload the page to re render all components with new user information
-            if(localStorage.getItem('user'))
+            
+            if(localStorage.getItem('auth'))
                 navigate('/');
             else 
                 navigate('/login');
-
+            
+            window.location.reload()
         }catch(err){
             console.log(err);
         }

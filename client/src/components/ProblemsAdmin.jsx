@@ -46,7 +46,7 @@ const ProblemsAdmin = () => {
 
                 return(
     
-         <tr className={`border-solid border-black text-slate-200 ${i} hover:bg-slate-500 hover:cursor-pointer delay-200`} key={index}>
+         <tr className={`border-solid border-black text-slate-200 ${i} hover:bg-slate-800 hover:cursor-pointer `} key={index}>
             <td>
                 {curr.title}
             </td>
@@ -56,12 +56,12 @@ const ProblemsAdmin = () => {
             <td className={`${curr.difficulty}`}>
                 {curr.difficulty}
             </td>
-            <td className='hover:text-black hover:scale-110 delay-100'>
+            <td className='hover:text-gray-400 hover:scale-125 delay-100'>
             <Link to={`/updateQues/${curr.problemId}`}>
             <FaPenToSquare/>
             </Link>
             </td>
-            <td className='hover:text-black hover:scale-110 delay-100'>
+            <td className='hover:text-gray-400 hover:scale-125 delay-100'>
             <button onClick={()=>handleDelete(curr.problemId)}><FaTrashAlt/></button>
             </td>
         </tr>
@@ -69,9 +69,10 @@ const ProblemsAdmin = () => {
             })}
         </tbody>
         </table>
-        <a href='/AddQues'>
+        <Link to={`/AddQues`}>
             <button className="bg-blue-950 hover:shadow-2xl hover:text-blue-200
-             block rounded mt-5 px-2 py-3 border-2 border-yellow-600 m-auto text-white">Add Problem</button></a>
+             block rounded mt-5 px-2 py-3 border-2 border-yellow-600 m-auto text-white">Add Problem</button>
+        </Link>
             </div>
         )
 }

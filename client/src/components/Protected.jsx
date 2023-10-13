@@ -1,22 +1,42 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useContext } from 'react'
 import { useNavigate } from 'react-router-dom';
+import LoginContext from '../context/LoginContext';
+import {Axios , BASE} from './helper.js'
 
 const Protected = (props) => {
-    const {Component} = props;
-    const navigate = useNavigate();
+  const { Component } = props;
+  const navigate = useNavigate();
+  const { user , setUser} = useContext(LoginContext)
 
-    useEffect(()=>{
-        let user = JSON.parse(localStorage.getItem('user'));
+  useEffect(() => {
+    const logOut = () => {
+      
+      const logOutUser = async () => {
+        await Axios.get(`${BASE}/logout`)
+          .then(res => {
+            console.log(res);
+          })
+      }
+      logOutUser();
+      setUser(null);
+    }
 
-        if(!user || user.admin===false){
-            navigate('/login');
-        }
-        
-    });
+    console.log(user)
+    if (!user || !user.user.admin){
+      logOut();
+      if(!user)
+        alert("Unauthorized to Update Questions! Please Login with Admin permissions.")
+      else if(!user.user.admin)
+        alert("couldn't verify admin");
+      
+      navigate('/login');
+    }
+
+  });
 
   return (
     <div>
-        <Component/>
+      <Component />
     </div>
   )
 }

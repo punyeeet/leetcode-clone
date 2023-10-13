@@ -4,16 +4,21 @@ const cors = require('cors')
 const bodyParser = require('body-parser');
 const jwt = require('jsonwebtoken');
 require('dotenv').config();
-const { auth } = require('./middleware');
+const { auth, adminAuth } = require('./middleware');
 const app = express()
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 const port = process.env.PORT || 3001
 require('./db/config')
+const cookieparser = require('cookie-parser')
 
 
-app.use(cors())
+app.use(cors({
+  origin: process.env.ORIGIN,
+  credentials: true
+}))
 
+app.use(cookieparser())
 
 
 //importing model for user
@@ -23,6 +28,7 @@ const User = require('./db/User')
 
 const problems = require('./db/Problem');
 const Problem = require('./db/Problem');
+const cookieParser = require('cookie-parser');
 
 
 const SUBMISSION = [
@@ -46,7 +52,7 @@ app.post('/signup', async function(req, res) {
   const checkDuplicate = await User.findOne({email});
   
   if(checkDuplicate!==null){
-    return res.status(400).send({message:"User already exist"});
+    return res.status(401).send({message:"User already exist"});
   }else{
 
     
@@ -58,15 +64,18 @@ app.post('/signup', async function(req, res) {
     await newUser.save()
     .then((response)=>{
 
-      //jwt token
-        const token = jwt.sign({
-          email
-      },"JWT_KEY");
-      
-        // return back 200 status code to the client
-        console.log(response)
-        return res.status(200).json({user: response,token});
-
+      // //jwt token
+      //   const token = jwt.sign({
+      //     newUser
+      // },process.env.JWT_KEY);
+      //   res.cookie('auth',token)
+      //   // return back 200 status code to the client
+        return res.status(200).json({msg:"Success"});
+    }).catch(err=>{
+      console.log(err);
+      return res.status(400).json({
+        msg:"Error creating a new user"
+      })
     })
   
   }
@@ -81,28 +90,29 @@ app.post('/login', async function(req, res) {
   const email = req.body.username;
   const password = req.body.password;
   
-
   // Check if the user with the given email exists in the USERS array
   // Also ensure that the password is the same
   const user = await User.findOne({ email:email });
   
-  if(!user)
+  if(!user){
     return res.status(404).send({message:"User doesn't exist"});
-  else if(user.password!==password)
+  }
+  else if(user.password!==password){
     return res.status(401).send({message:"Wrong Password"});
+  }
   
     const token = jwt.sign({
-        id:user.id
-    },"JWT_KEY");
+        user
+    },process.env.JWT_KEY);
   
+    // console.log(token)
 
+  res.cookie('auth',token,{maxAge: 90000000, httpOnly: true, secure: false, overwrite: true});
 
-    
   // If the password is the same, return back 200 status code to the client
-  return res.status(200).json({user,token});
+  return res.status(200).json({user});
   // Also send back a token (any random string will do for now)
   // If the password is not the same, return back 401 status code to the client
-
  
 })
 
@@ -168,7 +178,7 @@ app.post("/submissions",auth, function(req, res) {
 
 
 //adding question
-app.post("/addQues",(req,res)=>{
+app.post("/addQues",adminAuth,(req,res)=>{
   
 
   //if current user is not an admin
@@ -186,16 +196,16 @@ app.post("/addQues",(req,res)=>{
   const newQues = new problems(req.body);
 
   newQues.save()
-  .then(savedUser => {
+  .then(savedQues => {
     
-    console.log('User saved:', savedUser);
+    console.log('Question saved:', savedQues);
     return res.sendStatus(200);
 
   })
   .catch(error => {
-    console.error('Error saving user:', error);
+    console.error('Error saving question:', error);
   });
-
+  
   
 })
 
@@ -239,9 +249,34 @@ app.listen(port, function() {
   
 })
 
-app.get('/',(req,res)=>{
-    res.send("Hi")
+
+
+app.get('/auth',(req,res)=>{
+    const authHeader = req.cookies.auth;
+
+    if(!authHeader){
+        return res.status(405).json({msg: "Missing auth token"});
+    }else{
+        jwt.verify(authHeader,process.env.JWT_KEY,(err,decoded)=>{
+            if(err){
+                res.status(401).send({msg:"Invalid Token"});
+            }else{
+                res.status(200).json({
+                  user:{...decoded}
+                })
+            }
+        })
+
+    }
 })
 
+app.get('/logout',(req,res)=>{
+  res.clearCookie('auth', { httpOnly: true });
+  res.send('Logged out successfully');
+})
 
+app.get('/',(req,res)=>{
+  res.cookie('demo','124');
+  res.status(200).json({msg:"all cool"})
+})
 
