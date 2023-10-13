@@ -35,12 +35,12 @@ export const Login = () => {
 
             //force reload the page to re render all components with new user information
             
-            if(localStorage.getItem('auth'))
-                navigate('/');
-            else 
-                navigate('/login');
+            // if(localStorage.getItem('auth'))
+            //     navigate('/');
+            // else 
+            //     navigate('/login');
             
-            window.location.reload()
+            // window.location.reload()
         }catch(err){
             console.log(err);
         }

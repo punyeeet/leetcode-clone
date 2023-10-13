@@ -15,7 +15,7 @@ const cookieparser = require('cookie-parser')
 
 app.use(cors({
   origin: process.env.ORIGIN,
-  credentials: true
+  credentials: true,
 }))
 
 app.use(cookieparser())
@@ -108,6 +108,7 @@ app.post('/login', async function(req, res) {
     // console.log(token)
 
   res.cookie('auth',token,{maxAge: 90000000, httpOnly: true, secure: false, overwrite: true});
+    // on deployed platforms set 'secure' as true 
 
   // If the password is the same, return back 200 status code to the client
   return res.status(200).json({user});
