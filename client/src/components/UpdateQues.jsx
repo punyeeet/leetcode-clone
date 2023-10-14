@@ -22,7 +22,7 @@ const UpdateQues = () => {
   useEffect(() => {
     const fetchQues = async () => {
       try {
-        const res = await axios.get(`http://localhost:3001/problem/${id}`)
+        const res = await axios.get(`${BASE}/problem/${id}`)
         setProblem(res.data.problem)
         setSelectedBullet(res.data.problem.difficulty)
 
