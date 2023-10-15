@@ -35,8 +35,8 @@ const ProblemsAdmin = () => {
     
             <tr>
                 <th>Title</th>
-                <th>Difficulty</th>
                 <th>Acceptance</th>
+                <th>Difficulty</th>
                 <th className='w-14'></th>
                 <th className='w-14'></th>
               </tr>
