@@ -134,7 +134,7 @@ app.get("/problem/:id", async (req, res) => {
     });
   });
 
-app.get("/submissions/:id",auth, function(req, res) {
+app.get("/submissions/:id", function(req, res) {
    // return the users submissions for this problem
    const filterSub = SUBMISSION.filter((curr)=>{
     return curr.problemId == req.params.id && curr.userId==req.body.userId;
@@ -143,7 +143,7 @@ app.get("/submissions/:id",auth, function(req, res) {
 });
 
 
-app.post("/submissions",auth, function(req, res) {
+app.post("/submissions", function(req, res) {
    // let the user submit a problem, randomly accept or reject the solution
   const submission = req.body.submission;
   const accepted = Math.random()>0.5;
