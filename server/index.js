@@ -109,7 +109,7 @@ app.post('/login', async function(req, res) {
   
     // console.log(token)
 
-  res.cookie('auth',token,{maxAge: 90000000, httpOnly: true, secure: false, overwrite: true,sameSite:'none',
+  res.cookie('auth',token,{maxAge: 90000000, httpOnly: true, overwrite: true,sameSite:'none',
                            secure:true});
 
   // If the password is the same, return back 200 status code to the client
@@ -274,7 +274,7 @@ app.get('/auth',(req,res)=>{
 })
 
 app.get('/logout',(req,res)=>{
-  res.clearCookie('auth', { httpOnly: true, secure: false,sameSite:'none',
+  res.clearCookie('auth', { httpOnly: true,sameSite:'none',
                            secure:true});
   res.send('Logged out successfully');
 })
